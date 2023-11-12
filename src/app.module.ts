@@ -19,6 +19,8 @@ import { AllConfigType } from './config/config.type';
 import { MailerModule } from './mailer/mailer.module';
 import { PrismaService } from './prisma/prisma.service';
 import { user } from '@techsavvyash/user-service';
+import { MonitoringModule } from './monitoring/monitoring.module';
+import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -64,6 +66,12 @@ import { user } from '@techsavvyash/user-service';
     MailerModule,
     HomeModule,
     user.UserModule,
+    MonitoringModule,
+    PrometheusModule.register({
+      defaultMetrics: {
+        enabled: false,
+      },
+    }),
   ],
   providers: [PrismaService],
 })
